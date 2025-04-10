@@ -20,8 +20,28 @@ public class ThreeAdressCodeGenerator {
     }
 
     private void generateBloco(Bloco bloco) {
+        // Gera código para declarações de variáveis
+        generateDeclaracaoVariavel(bloco.getDeclaracaoVariavel());
+
+        // Gera código para os comandos
         for (Comando comando : bloco.getComandos()) {
             generateComando(comando);
+        }
+    }
+
+    private void generateDeclaracaoVariavel(List<DeclaracaoVariavel> declaracoes) {
+        for (DeclaracaoVariavel declaracao : declaracoes) {
+            String nomeVariavel = declaracao.getIdentificador();
+            Expressao valorInicial = declaracao.getValorInicializado();
+    
+            if (!(valorInicial instanceof ExpressaoNula)) {
+                // Gera código para inicializar a variável, se houver valor inicial
+                String temp = generateExpressao(valorInicial);
+                instructions.add(new ThreeAdressCodeInstruction("=", temp, null, nomeVariavel));
+            } else {
+                // Variáveis sem valor inicial são apenas declaradas
+                instructions.add(new ThreeAdressCodeInstruction("DECLARE", null, null, nomeVariavel));
+            }
         }
     }
 

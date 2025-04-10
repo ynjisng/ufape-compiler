@@ -32,7 +32,7 @@ public class ThreeAdressCodeInstruction {
     @Override
     public String toString() {
         if (operation.equals("LABEL")) {
-            return operation + " " + arg1; // Exibe apenas o rótulo
+            return operation + " " + arg1 + ":"; // Exibe apenas o rótulo
         } else if (operation.equals("GOTO")) {
             return operation + " " + arg1; // Exibe apenas o destino do salto
         } else if (operation.equals("CALL")) {
